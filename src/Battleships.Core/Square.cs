@@ -2,15 +2,13 @@ namespace Battleships.Core
 {
     public class Square
     {
-        public int RowNumber { get; }
-        public char ColumnId { get; }
+        public Coordinates Coordinates { get; }
         public bool IsOccupied { get; private set; }
         public ShotState State { get; private set; }
 
         public Square(int rowNumber, char columnId)
         {
-            RowNumber = rowNumber;
-            ColumnId = columnId;
+            Coordinates = new Coordinates(columnId, rowNumber);
             State = ShotState.NotShot;
         }
 

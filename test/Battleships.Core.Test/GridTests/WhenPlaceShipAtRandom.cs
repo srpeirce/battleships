@@ -1,5 +1,6 @@
 using System.Linq;
 using Battleships.Core.Ship;
+using Battleships.Core.ShipPlacement;
 using NSubstitute;
 using Xunit;
 

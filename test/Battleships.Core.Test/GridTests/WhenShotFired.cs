@@ -1,4 +1,5 @@
 using System.Linq;
+using Battleships.Core.ShipPlacement;
 using NSubstitute;
 using Xunit;
 
@@ -43,7 +44,7 @@ namespace Battleships.Core.Test.GridTests
         {
             _grid.ShotFired('A', 2);
 
-            var square = _grid.Squares.Single(s => s.ColumnId == 'A' && s.RowNumber == 2);
+            var square = _grid.Squares.Single(s => s.Coordinates.Equals(new Coordinates('A', 2)));
             Assert.Equal(ShotState.Miss, square.State);
         }
         
@@ -52,7 +53,7 @@ namespace Battleships.Core.Test.GridTests
         {
             _grid.ShotFired('A', 1);
 
-            var square = _grid.Squares.Single(s => s.ColumnId == 'A' && s.RowNumber == 1);
+            var square = _grid.Squares.Single(s => s.Coordinates.Equals(new Coordinates('A',1)));
             Assert.Equal(ShotState.Hit, square.State);
         }
     }

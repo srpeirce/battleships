@@ -1,4 +1,4 @@
-namespace Battleships.Core
+namespace Battleships.Core.ShipPlacement
 {
     public class SquarePlacement
     {

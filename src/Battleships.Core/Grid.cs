@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Battleships.Core.Ship;
+using Battleships.Core.ShipPlacement;
 
 namespace Battleships.Core
 {
@@ -38,8 +39,7 @@ namespace Battleships.Core
 
         public ShotState ShotFired(char column, int row)
         {
-            var square = Squares.SingleOrDefault(s => s.ColumnId == column 
-                                                      && s.RowNumber == row);
+            var square = Squares.SingleOrDefault(s => s.Coordinates.Equals(new Coordinates(column, row)));
             return square?.Shoot() ?? ShotState.Miss;
         }
     }

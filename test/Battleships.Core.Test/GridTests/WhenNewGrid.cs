@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Battleships.Core.ShipPlacement;
 using NSubstitute;
 using Xunit;
 
@@ -20,8 +21,8 @@ namespace Battleships.Core.Test.GridTests
             randomPlacementSelector.Select(_grid.Squares, 5)
                 .Returns(new SquarePlacement(squaresToPlaceBattleship.ToArray()));
             
-            _rows = _grid.Squares.GroupBy(s => s.RowNumber);
-            _columns = _grid.Squares.GroupBy(s => s.ColumnId);
+            _rows = _grid.Squares.GroupBy(s => s.Coordinates.RowNumber);
+            _columns = _grid.Squares.GroupBy(s => s.Coordinates.ColumnId);
         }
         
         [Fact]
@@ -49,7 +50,7 @@ namespace Battleships.Core.Test.GridTests
         {
             var expectedColumnIds = "ABCDEFGHIJ".ToArray();
             Assert.All(_rows, r => 
-                Assert.True(expectedColumnIds.All(columnId => r.Select(s => s.ColumnId).Contains(columnId))));
+                Assert.True(expectedColumnIds.All(columnId => r.Select(s => s.Coordinates.ColumnId).Contains(columnId))));
         }
         
         [Fact]
@@ -83,7 +84,7 @@ namespace Battleships.Core.Test.GridTests
         {
             var expectedRowIds = Enumerable.Range(1, 10);
             Assert.All(_columns, c => 
-                Assert.True(expectedRowIds.All(rowId => c.Select(s => s.RowNumber).Contains(rowId))));
+                Assert.True(expectedRowIds.All(rowId => c.Select(s => s.Coordinates.RowNumber).Contains(rowId))));
         }
 
         [Fact]

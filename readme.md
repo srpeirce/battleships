@@ -34,3 +34,18 @@ From command line run: `dotnet run --project .\src\Battleships.App\`
 ![NewGame](NewGame.jpg)
 
 > Hint: The ships *might* be in the top left corner!
+
+## Update 1 - Random Ship Placement
+
+Additional time spent: ~1 hour.
+
+I have now implemented the random ship placement as requested.
+
+It is very simple.
+- `RandomPlacementSelector` is used to find a place where the ship can be placed
+  - `FindAvailableSquarePlacements` finds all possible places where the ship could be placed
+  - We use random to choose one of these placements at random 
+
+### Future Improvements
+I often test against `Square[]` instead of `Grid` - I think this is perhaps a mistake. I would look at if I can tidy these up to make it easier to reason about.
+In a few instances I write LINQ expressions to get the `Row` or `Column` - this would possibly be better if I refactored to be methods on the `Grid` class.

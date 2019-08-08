@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using Battleships.Core;
+using Battleships.Core.ShipPlacement;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Battleships.App
@@ -84,7 +85,9 @@ namespace Battleships.App
             var sp = new ServiceCollection()
                 .AddTransient<Game>()
                 .AddTransient<IGrid, Grid>()
-                .AddTransient<IRandomPlacementSelector, StubbedRandomPlacementSelector>();
+                .AddSingleton<IRandomPlacementSelector, RandomPlacementSelector>()
+                .AddSingleton<IFindAvailableSquarePlacements, FindAvailableSquarePlacements>()
+                .AddSingleton<Random>();
 
             return sp.BuildServiceProvider();
         }
@@ -96,7 +99,7 @@ namespace Battleships.App
         {
             var sb = new StringBuilder();
             
-            var rows = game.Grid.Squares.GroupBy(s => s.RowNumber).ToList();
+            var rows = game.Grid.Squares.GroupBy(s => s.Coordinates.RowNumber).ToList();
             rows.ForEach(row =>
             {
                 row.ToList().ForEach(square =>
@@ -110,7 +113,7 @@ namespace Battleships.App
                             sb.Append("O");
                             break;
                         default:
-                            sb.Append($"{square.ColumnId}{square.RowNumber}");
+                            sb.Append($"{square.Coordinates.ColumnId}{square.Coordinates.RowNumber}");
                             break;
                     };
                     sb.Append("\t");

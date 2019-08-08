@@ -1,4 +1,5 @@
 using System.Linq;
+using Battleships.Core.ShipPlacement;
 
 namespace Battleships.Core.Ship
 {
